@@ -43,7 +43,12 @@ include(sourcelist.cmake)
 list(TRANSFORM SRCS PREPEND "${SRCDIR}/")
 add_executable(${BINNAME} ${SRCS})
 
-target_link_libraries(${BINNAME} ${DARTLIB} capstone)
+# use fmt::format replace std::format
+find_package(fmt)
+target_link_libraries(${BINNAME} ${DARTLIB} 
+	capstone
+	fmt::fmt)
+
 
 target_precompile_headers(${BINNAME} PRIVATE "${SRCDIR}/pch.h")
 

@@ -8,33 +8,20 @@ For high priority missing features, see [TODO](#todo)
 
 
 ## Environment Setup
-This application uses C++20 Formatting library. It requires very recent C++ compiler such as g++>=13, Clang>=16.
+origin repo require gcc>=13, because of `std::format`. 
+this repo use `fmt::format` instead. so you can use older version of toolchain
 
-I recommend using Linux OS (only tested on Deiban sid/trixie) because it is easy to setup.
+my env: ubuntu22.04, gcc 11.4.0, python3.10
 
-### Debian Unstable (gcc 13)
+### Debian or Ubuntu
 - Install build tools and depenencies
 ```
 apt install python3-pyelftools python3-requests git cmake ninja-build \
-    build-essential pkg-config libicu-dev libcapstone-dev
+    build-essential pkg-config libicu-dev libcapstone-dev libfmt-dev
 ```
+### Other system 
 
-### Windows
-- Install git and python 3
-- Install latest Visual Studio with "Desktop development with C++" and "C++ CMake tools"
-- Install required libraries (libcapstone and libicu4c)
-```
-python scripts\init_env_win.py
-```
-- Start "x64 Native Tools Command Prompt"
-
-### macOS Ventura and Sonoma (clang 16)
-- Install XCode
-- Install clang 16 and required tools
-```
-brew install llvm@16 cmake ninja pkg-config icu4c capstone
-pip3 install pyelftools requests
-```
+Not support. please try origin repo: https://github.com/worawit/blutter
 
 ## Usage
 Extract "lib" directory from apk file
