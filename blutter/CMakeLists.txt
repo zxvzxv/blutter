@@ -45,14 +45,13 @@ add_executable(${BINNAME} ${SRCS})
 
 # use fmt::format replace std::format
 find_package(fmt)
-target_link_libraries(${BINNAME} ${DARTLIB} 
-	capstone
-	fmt::fmt)
-
+target_link_libraries(${BINNAME} PRIVATE ${DARTLIB} capstone fmt::fmt)
 
 target_precompile_headers(${BINNAME} PRIVATE "${SRCDIR}/pch.h")
 
 if (MSVC)
+	# for dynamic function (exception) table
+	target_link_libraries(${BINNAME} PRIVATE ntdll)
 	# remove compiler exception handler options
 	#string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 	# remove compiler RTTI option
@@ -103,6 +102,9 @@ if (NO_INIT_LATE_STATIC_FIELD)
 endif()
 if (NO_CODE_ANALYSIS)
 	set(defines ${defines} NO_CODE_ANALYSIS)
+endif()
+if (NO_METHOD_EXTRACTOR_STUB)
+	set(defines ${defines} NO_METHOD_EXTRACTOR_STUB)
 endif()
 target_compile_definitions(${BINNAME} PRIVATE ${defines})
 
